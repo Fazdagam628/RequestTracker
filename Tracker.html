@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTTP Request Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px;
+      background: #f2f2f2;
+    }
+    .counter {
+      font-size: 48px;
+      margin: 20px 0;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>HTTP Request Tracker</h1>
+  <div class="counter" id="counter">0</div>
+  <button onclick="sendRequest()">Send HTTP Request</button>
+
+  <script>
+    // Inisialisasi dari LocalStorage
+    let requestCount = localStorage.getItem('requestCount') || 0;
+    document.getElementById('counter').textContent = requestCount;
+
+    function sendRequest() {
+      // Simulasi request
+      fetch('https://jsonplaceholder.typicode.com/posts/1') // Dummy API
+        .then(response => response.json())
+        .then(data => {
+          console.log('Request successful:', data);
+          // Tambah hitungan
+          requestCount++;
+          localStorage.setItem('requestCount', requestCount);
+          document.getElementById('counter').textContent = requestCount;
+        })
+        .catch(error => {
+          console.error('Request failed:', error);
+        });
+    }
+  </script>
+
+</body>
+</html>
